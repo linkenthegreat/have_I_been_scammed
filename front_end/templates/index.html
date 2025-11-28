@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Have I Been Scammed? 🛡️</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="chat-container">
+                <header class="chat-header">
+                    <h1>Have I Been Scammed? 🛡️</h1>
+                    <button id="newChatBtn" class="new-chat-btn" title="Start a new conversation">
+                        🔄 New Chat
+                    </button>
+                </header>
+
+                <main class="chat-main">
+                    <!-- Chat Messages Area -->
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Welcome Message -->
+                        <div class="message assistant-message">
+                            <div class="message-content">
+                                <h2>Welcome to <strong>Have I Been Scammed</strong></h2>
+                                <p>If you're worried about a possible scam, you're not alone — we're here to support you.</p>
+                                <p>You can:</p>
+                                <ul>
+                                    <li>📝 Share your story</li>
+                                    <li>📷 Upload a screenshot of the ad or conversation</li>
+                                    <li>🌐 Provide the website address</li>
+                                    <li>🎤 Upload an audio recording</li>
+                                </ul>
+                                <p>We'll review the information, give you an evaluation, share general advice, and provide contact details for law enforcement.</p>
+                                <p><strong>If it looks like you've been scammed, we can also help you draft a clear report to send to the authorities.</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="chat-input-container">
+                        <!-- Optional Context (collapsible) -->
+                        <details class="context-section" style="margin-bottom: 0.5rem;">
+                            <summary style="cursor: pointer; font-size: 0.9rem; color: #666;">📍 Optional: Help us personalize your report</summary>
+                            <div class="context-fields" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                <select id="userLocation" style="flex: 1; padding: 0.5rem; border: 1px solid #ddd; border-radius: 0.5rem;">
+                                    <option value="">Your location (optional)</option>
+                                    <option value="Australia">Australia</option>
+                                    <option value="United States">United States</option>
+                                    <option value="United Kingdom">United Kingdom</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="New Zealand">New Zealand</option>
+                                    <option value="Other">Other/Prefer not to say</option>
+                                </select>
+
+                                <select id="userRole" style="flex: 1; padding: 0.5rem; border: 1px solid #ddd; border-radius: 0.5rem;">
+                                    <option value="">I am... (optional)</option>
+                                    <option value="victim">The victim of this scam</option>
+                                    <option value="reporter">Reporting on behalf of someone</option>
+                                    <option value="researcher">Just researching/curious</option>
+                                </select>
+                            </div>
+                        </details>
+
+                        <!-- File Attachments -->
+                        <div class="file-attachments" id="fileAttachments" style="display: none; margin-bottom: 0.5rem;">
+                            <div class="file-tag" id="imageTag" style="display: none;">
+                                📷 <span id="image-filename-tag"></span>
+                                <button onclick="clearFile('image')" style="margin-left: 0.5rem; cursor: pointer;">✕</button>
+                            </div>
+                            <div class="file-tag" id="audioTag" style="display: none;">
+                                🎤 <span id="audio-filename-tag"></span>
+                                <button onclick="clearFile('audio')" style="margin-left: 0.5rem; cursor: pointer;">✕</button>
+                            </div>
+                        </div>
+
+                        <!-- Input Box -->
+                        <div class="chat-input-wrapper">
+                            <textarea 
+                                id="userInput" 
+                                placeholder="Describe the situation, paste a suspicious message, or enter a website URL..."
+                                rows="3"></textarea>
+                            <div class="chat-input-actions">
+                                <div class="input-actions-left">
+                                    <label for="image-upload" class="attach-btn" title="Attach image">
+                                        📷
+                                        <input type="file" 
+                                               id="image-upload" 
+                                               name="image_file" 
+                                               accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                                               style="display: none;">
+                                    </label>
+                                    <label for="audio-upload" class="attach-btn" title="Attach audio">
+                                        🎤
+                                        <input type="file" 
+                                               id="audio-upload" 
+                                               name="audio_file" 
+                                               accept="audio/mp3,audio/wav,audio/ogg,audio/m4a"
+                                               style="display: none;">
+                                    </label>
+                                </div>
+                                <button id="analyzeBtn" onclick="analyzeScam()" class="send-btn">
+                                    Analyze
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <script src="/static/script.js"></script>
+        </body>
+
+        </html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observability Dashboard - Scam Detection System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .stat-value {
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .stat-value.good {
+            color: #10b981;
+        }
+        
+        .stat-value.warning {
+            color: #f59e0b;
+        }
+        
+        .stat-value.error {
+            color: #ef4444;
+        }
+        
+        .error-item {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        
+        .error-time {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .error-message {
+            color: #dc2626;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .error-context {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .refresh-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid white;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s;
+        }
+        
+        .refresh-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            padding: 40px;
+        }
+        
+        .agent-list, .tool-list {
+            list-style: none;
+        }
+        
+        .agent-item, .tool-item {
+            background: #f9fafb;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .health-status {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .health-status.healthy {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .health-status.unhealthy {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Observability Dashboard</h1>
+        
+        <button class="refresh-btn" onclick="loadAllData()">🔄 Refresh Data</button>
+        
+        <div id="content" class="loading">
+            Loading observability data...
+        </div>
+    </div>
+    
+    <script>
+        async function loadHealthCheck() {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                return { status: 'unhealthy', error: error.message };
+            }
+        }
+        
+        async function loadPerformance() {
+            try {
+                const response = await fetch('/api/observability/performance');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                return { error: error.message };
+            }
+        }
+        
+        async function loadErrors() {
+            try {
+                const response = await fetch('/api/observability/errors?limit=10');
+                const data = await response.json();
+                return data.errors || [];
+            } catch (error) {
+                return [];
+            }
+        }
+        
+        async function loadAllData() {
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = '<div class="loading">Loading observability data...</div>';
+            
+            const [health, performance, errors] = await Promise.all([
+                loadHealthCheck(),
+                loadPerformance(),
+                loadErrors()
+            ]);
+            
+            contentDiv.innerHTML = `
+                <div class="dashboard-grid">
+                    ${renderHealthCard(health)}
+                    ${renderPerformanceCard(performance)}
+                    ${renderAgentStatsCard(performance)}
+                    ${renderToolStatsCard(performance)}
+                </div>
+                ${renderErrorsCard(errors)}
+            `;
+        }
+        
+        function renderHealthCard(health) {
+            const isHealthy = health.status === 'healthy';
+            return `
+                <div class="card">
+                    <h2>🏥 System Health</h2>
+                    <div class="stat-row">
+                        <span class="stat-label">Status</span>
+                        <span class="health-status ${isHealthy ? 'healthy' : 'unhealthy'}">
+                            ${health.status.toUpperCase()}
+                        </span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Service</span>
+                        <span class="stat-value">${health.service || 'Unknown'}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Database</span>
+                        <span class="stat-value ${health.database === 'connected' ? 'good' : 'error'}">
+                            ${health.database || 'Unknown'}
+                        </span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderPerformanceCard(perf) {
+            if (perf.error) {
+                return `
+                    <div class="card">
+                        <h2>⚡ Performance Metrics</h2>
+                        <p class="error-message">Error loading performance data</p>
+                    </div>
+                `;
+            }
+            
+            return `
+                <div class="card">
+                    <h2>⚡ Performance Metrics</h2>
+                    <div class="stat-row">
+                        <span class="stat-label">Total Events</span>
+                        <span class="stat-value">${perf.total_events || 0}</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Avg Duration</span>
+                        <span class="stat-value">${perf.avg_duration_ms || 0}ms</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Max Duration</span>
+                        <span class="stat-value">${perf.max_duration_ms || 0}ms</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Unique Sessions</span>
+                        <span class="stat-value">${perf.unique_sessions || 0}</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderAgentStatsCard(perf) {
+            if (!perf.agent_performance || perf.agent_performance.length === 0) {
+                return `
+                    <div class="card">
+                        <h2>🤖 Agent Performance</h2>
+                        <p style="color: #666; text-align: center; padding: 20px;">
+                            No agent data yet. Run some analyses to see metrics.
+                        </p>
+                    </div>
+                `;
+            }
+            
+            const agentList = perf.agent_performance.map(agent => `
+                <li class="agent-item">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <strong>${agent.agent || 'Unknown'}</strong>
+                        <span>${agent.calls} calls</span>
+                    </div>
+                    <div style="font-size: 0.9em; color: #666;">
+                        Avg: ${agent.avg_duration_ms}ms
+                    </div>
+                </li>
+            `).join('');
+            
+            return `
+                <div class="card">
+                    <h2>🤖 Agent Performance</h2>
+                    <ul class="agent-list">
+                        ${agentList}
+                    </ul>
+                </div>
+            `;
+        }
+        
+        function renderToolStatsCard(perf) {
+            if (!perf.tool_performance || perf.tool_performance.length === 0) {
+                return `
+                    <div class="card">
+                        <h2>🔧 Tool Performance</h2>
+                        <p style="color: #666; text-align: center; padding: 20px;">
+                            No tool data yet. Tools are tracked when used.
+                        </p>
+                    </div>
+                `;
+            }
+            
+            const toolList = perf.tool_performance.map(tool => `
+                <li class="tool-item">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <strong>${tool.tool || 'Unknown'}</strong>
+                        <span>${tool.calls} calls</span>
+                    </div>
+                    <div style="font-size: 0.9em; color: #666;">
+                        Avg: ${tool.avg_duration_ms}ms
+                    </div>
+                </li>
+            `).join('');
+            
+            return `
+                <div class="card">
+                    <h2>🔧 Tool Performance</h2>
+                    <ul class="tool-list">
+                        ${toolList}
+                    </ul>
+                </div>
+            `;
+        }
+        
+        function renderErrorsCard(errors) {
+            if (errors.length === 0) {
+                return `
+                    <div class="card">
+                        <h2>🚨 Recent Errors</h2>
+                        <p style="color: #10b981; text-align: center; padding: 20px; font-weight: 500;">
+                            ✅ No errors! System running smoothly.
+                        </p>
+                    </div>
+                `;
+            }
+            
+            const errorList = errors.map(error => `
+                <div class="error-item">
+                    <div class="error-time">${new Date(error.timestamp).toLocaleString()}</div>
+                    <div class="error-message">${error.error_message}</div>
+                    <div class="error-context">
+                        Session: ${error.session_id} | 
+                        Type: ${error.event_type}
+                        ${error.agent_name ? ` | Agent: ${error.agent_name}` : ''}
+                        ${error.tool_name ? ` | Tool: ${error.tool_name}` : ''}
+                    </div>
+                </div>
+            `).join('');
+            
+            return `
+                <div class="card">
+                    <h2>🚨 Recent Errors (Last 10)</h2>
+                    ${errorList}
+                </div>
+            `;
+        }
+        
+        // Auto-refresh every 30 seconds
+        setInterval(loadAllData, 30000);
+        
+        // Initial load
+        loadAllData();
+    </script>
+</body>
+</html>

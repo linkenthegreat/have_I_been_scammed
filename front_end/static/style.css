@@ -1,0 +1,579 @@
+:root {
+    --primary: #2563eb;
+    --bg: #f8fafc;
+    --text: #1e293b;
+    --safe: #16a34a;
+    --caution: #ca8a04;
+    --danger: #dc2626;
+    --chat-bg: #ffffff;
+    --message-bg: #f0f4f9;
+    --border: #e2e8f0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Chat Container */
+.chat-container {
+    width: 100%;
+    max-width: 900px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--chat-bg);
+    box-shadow: 0 0 40px rgba(0,0,0,0.1);
+}
+
+/* Header */
+.chat-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* New Chat Button */
+.new-chat-btn {
+    padding: 0.625rem 1.25rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.new-chat-btn:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+}
+
+.new-chat-btn:active {
+    transform: scale(0.98);
+}
+
+/* Main Chat Area */
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Messages Area */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    background: var(--bg);
+}
+
+/* Message Bubbles */
+.message {
+    margin-bottom: 1.5rem;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.assistant-message .message-content {
+    background: var(--message-bg);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    max-width: 100%;
+}
+
+.assistant-message h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.3rem;
+    color: var(--primary);
+}
+
+.assistant-message p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.assistant-message ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.assistant-message li {
+    margin: 0.5rem 0;
+}
+
+.user-message .message-content {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    max-width: 80%;
+    margin-left: auto;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.input-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.tabs {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #64748b;
+    border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+textarea,
+input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    font-family: inherit;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+button#analyzeBtn {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button#analyzeBtn:hover {
+    background: #1d4ed8;
+}
+
+.hidden {
+    display: none;
+}
+
+#resultSection {
+    margin-top: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.badge.safe {
+    background: var(--safe);
+}
+
+.badge.caution {
+    background: var(--caution);
+}
+
+.badge.high {
+    background: var(--danger);
+}
+
+.report-card {
+    line-height: 1.6;
+}
+
+.feedback-section {
+    margin-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1rem;
+    text-align: center;
+}
+
+/* Spinner */
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#loading {
+    text-align: center;
+    color: #64748b;
+}
+
+/* Context Section */
+.context-section {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+}
+
+.context-section summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #475569;
+    user-select: none;
+}
+
+.context-section summary:hover {
+    color: var(--primary);
+}
+
+.context-fields {
+    padding-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.context-fields select {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    --text: #1e293b;
+    --safe: #16a34a;
+    --caution: #ca8a04;
+    --danger: #dc2626;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+}
+
+.input-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.tabs {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #64748b;
+    border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+textarea,
+input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    font-family: inherit;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+button#analyzeBtn {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button#analyzeBtn:hover {
+    background: #1d4ed8;
+}
+
+.hidden {
+    display: none;
+}
+
+#resultSection {
+    margin-top: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.badge.safe {
+    background: var(--safe);
+}
+
+.badge.caution {
+    background: var(--caution);
+}
+
+.badge.high {
+    background: var(--danger);
+}
+
+.report-card {
+    line-height: 1.6;
+}
+
+.feedback-section {
+    margin-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1rem;
+    text-align: center;
+}
+
+/* Spinner */
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#loading {
+    text-align: center;
+    color: #64748b;
+}
+
+/* Context Section */
+.context-section {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+}
+
+.context-section summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #475569;
+    user-select: none;
+}
+
+.context-section summary:hover {
+    color: var(--primary);
+}
+
+.context-fields {
+    padding-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.context-fields select {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    background: white;
+    cursor: pointer;
+}
+
+.context-fields select:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Export Buttons */
+.export-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.action-btn {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-btn.secondary {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.action-btn.secondary:hover {
+    background: #cbd5e1;
+    color: #1e293b;
+}
+
+/* File Upload Section Styles */
+.upload-section {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    border: 2px dashed #cbd5e1;
+}
+
+.upload-section h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.file-upload {
+    margin: 1rem 0;
+}
+
+.file-upload label {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.file-upload label:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.filename-display {
+    margin-left: 1rem;
+    color: #64748b;
+    font-size: 0.9rem;
+}

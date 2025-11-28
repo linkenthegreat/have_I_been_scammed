@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Database
+*.db
+*.sqlite3
+data/scam_detection.db
+
+# Logs
+# Phase 3: Observability logs
+
+tests/test_logs/*.log
+logs/observability.log  
+back_end/logs/observability.log  
+back_end/logs/*.log
+logs/*.log
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace_vs_code.code-workspace
+*.code-workspace
+# Testing
+tests/
+/tests
+*_test_plan.md
+# development idea and draft
+development_idea/
+adk_notebook/
+
+# Coverage reports
+.coverage
+coverage/

@@ -1,0 +1,26 @@
+# Core Dependencies
+flask
+google-adk
+google-generativeai
+python-dotenv
+
+# Testing
+pytest
+
+# External APIs
+requests
+
+# Export Functions (Phase 4)
+fpdf2  # PDF generation
+
+# Database & Sessions (Phase 1)
+sqlalchemy  # For DatabaseSessionService
+aiosqlite  # Async SQLite driver for DatabaseSessionService
+
+# Configuration Management (Phase 2)
+pyyaml  # For YAML agent configuration files
+
+# CLI Tools & Utilities
+tabulate  # For pretty-printing tables in db_cli.py
+
+# Note: sqlite3 is built-in with Python (no installation needed)
