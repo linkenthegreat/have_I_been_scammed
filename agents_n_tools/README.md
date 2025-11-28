@@ -15,7 +15,7 @@ OrchestratorAgent (Root)
 ├── URLAnalyzerAgent           # URL safety analysis (with 3 tools)
 ├── ReportGeneratorAgent       # Compile findings into user report
 ├── ResourceAssistantAgent     # Find local reporting contacts
-└── RecordKeeperAgent          # Log analysis to database
+└── RecordKeeperAgent          # Talk to Database (Legacy from previous version. Not in use)
 ```
 
 ### Agent Descriptions
@@ -220,7 +220,7 @@ SAFE_BROWSING_API_KEY=your_safe_browsing_key_here  # Optional
 ### External APIs
 - **Google Gemini API** - Required (get key at https://aistudio.google.com/app/api-keys)
 - **Google Safe Browsing API** - Optional (enhances URL safety checks)
-- **URLhaus API** - Public (no key required)
+- **URLhaus API** - Required (get key at https://urlhaus.abuse.ch/api/)
 
 ---
 

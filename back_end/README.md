@@ -66,8 +66,8 @@ Memory management for ADK agents:
 ### Services
 
 #### `services/orchestrator_service.py`
-Orchestrates the 7-agent workflow:
-- Creates root OrchestratorAgent with 6 sub-agents
+Orchestrates the 6-agent workflow:
+- Creates root OrchestratorAgent with 5 sub-agents
 - Manages DatabaseSessionService integration
 - Coordinates multi-agent interactions
 - Handles session state and context

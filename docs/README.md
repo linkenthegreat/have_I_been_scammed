@@ -3,37 +3,55 @@
 Detailed project documentation and guides.
 
 ## Files
-- `ARCHITECTURE_REFACTOR.md`: ADK compliance refactor and multi-agent architecture
+
+### Architecture & Design
+- `architecture.md`: Complete system design, component diagrams, and data flow
+- `glossary.md`: Definitions of scam-related terms and technical concepts
+
+### Guides & Tutorials
 - `INSTALLATION_TROUBLESHOOTING.md`: Common installation issues and solutions
-- `PHASE_5_COMPLETION.md`: Phase 5 documentation update completion report
 - `DB_CLI_GUIDE.md`: Database and log management CLI quick reference
-- `setup.md`: Step-by-step installation guide
-- `glossary.md`: Definitions of scam-related terms
-- `architecture.md`: System design and diagrams
+- `PHASE_5_COMPLETION.md`: Phase 5 documentation completion report
+
+### Legacy Documentation
+- `ARCHITECTURE_REFACTOR.md`: Historical ADK compliance refactor documentation
+- `setup.md`: Legacy setup guide (superseded by main README.md)
 
 ## Additional Documentation
 
+### Component Documentation
+- **Backend**: `../back_end/README.md` - API endpoints and services
+- **Agents**: `../agents_n_tools/README.md` - 5-agent architecture and workflows
+- **Database**: `../data/README.md` - Schema and data management
+- **Frontend**: `../front_end/README.md` - UI components
+- **Tests**: `../tests/README.md` - Testing strategy
+
+### Developer Tools
+- `db_cli.py --help`: Database and log management CLI reference
+- `check_dependencies.py`: Automated dependency verification
+
 ### ADK Notebooks (`../adk_notebook/`)
 - `observability_google_adk.md`: Comprehensive guide to ADK observability and logging
-- `day-*.ipynb`: ADK learning notebooks from 5-day intensive course
-
-### Development Planning (`../development_idea/`)
-- `system_v1_improve_plan.md`: Complete development roadmap with phase tracking
-- `agent_schema_draft_v1.csv`: Agent specifications and workflows
-
-### Tool Documentation
-- `db_cli.py --help`: Database and log management CLI reference
-- Back-end API: `../back_end/README.md`
-- Agent System: `../agents_n_tools/README.md`
-- Data Schema: `../data/README.md`
+- `google_adk_basic.md`: ADK fundamentals
+- `day-*.ipynb`: Learning notebooks from 5-day intensive course
 
 ## Key Concepts
 
 ### Agent Architecture
-- **LLM-Orchestrated Pattern**: Root orchestrator with 6 sub-agents as AgentTools
+- **LLM-Orchestrated Pattern**: Root orchestrator with 5 specialist agents as AgentTools
 - **Single Runner**: One ADK Runner manages all agent coordination
 - **State Sharing**: Agents communicate via `output_key` and session state
 - **Tool Context**: Automatic session injection for database tools
+
+### 5-Agent System
+1. **OrchestratorAgent**: Root coordinator with LLM-based routing
+2. **ReceptionistAgent**: User interaction & context gathering
+3. **TextAnalyzerAgent**: Text/image scam pattern detection
+4. **URLAnalyzerAgent**: URL safety analysis (with 3 external tools)
+5. **ReportGeneratorAgent**: Compile findings into actionable reports
+6. **ResourceAssistantAgent**: Find location-specific reporting contacts
+
+**Note**: RecordKeeperAgent removed - backend handles all logging automatically
 
 ### Session Management
 - **DatabaseSessionService**: Persistent sessions survive server restarts
@@ -59,3 +77,6 @@ Detailed project documentation and guides.
 - Project Main README: `../README.md`
 - Google ADK Documentation: https://google.github.io/adk-docs/
 - Flask Documentation: https://flask.palletsprojects.com/
+- URLhaus: https://urlhaus.abuse.ch/api/
+- Google Safe Browsing: https://developers.google.com/safe-browsing
+- Have I Been Pwned: https://haveibeenpwned.com/

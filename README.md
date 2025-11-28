@@ -3,8 +3,8 @@
 An open-source AI-powered web application to help the public detect and avoid fraud and scams. Built with **Google ADK** and **Gemini 2.5 Flash** for the "5-Day AI Agents Intensive Course with Google" capstone project.
 
 ## 🚀 Features
-- **7-Agent System**: Orchestrator coordinates Text Analyzer, URL Analyzer, Report Generator, Resource Assistant, Receptionist, and Record Keeper using ADK's LLM-Orchestrated pattern
-- **4 Integrated Tools**: Google Search, Safe Browsing API, URLhaus malware database, URL metadata analysis
+- **5-Agent System**: Orchestrator coordinates Receptionist, Text Analyzer, URL Analyzer, Report Generator, and Resource Assistant using ADK's LLM-Orchestrated pattern
+- **5 Integrated Tools**: Google Search (ADK built-in), Safe Browsing API, URLhaus malware database, URL metadata analysis, database session tools
 - **Proper ADK Architecture**: Sub-agents wrapped as AgentTools, single Runner, automatic LLM coordination
 - **Multi-Input Support**: Analyzes text messages, URLs, images, and mixed content
 - **Global Reporting**: Finds location-specific scam reporting contacts (Australia, US, UK, etc.)
@@ -23,7 +23,7 @@ An open-source AI-powered web application to help the public detect and avoid fr
 - **Testing**: pytest with TDD approach
 
 ## 📂 Project Structure
-- `agents_n_tools/`: 7 ADK agents + custom tools (Safe Browsing, URLhaus, URL metadata)
+- `agents_n_tools/`: 5 ADK agents (Orchestrator, Receptionist, Text Analyzer, URL Analyzer, Report Generator, Resource Assistant) + custom tools (Safe Browsing, URLhaus, URL metadata)
 - `back_end/`: Flask API, orchestrator service, observability tracking, session management
 - `front_end/`: Web interface with collapsible context gathering
 - `data/`: SQLite database with 5 tables (sessions, scam_checks, feedback, metrics, observability_events)
@@ -96,8 +96,8 @@ git clone [repo-url] && cd have_I_been_scammed && pip install -r requirements.tx
 ```
 
 ## 🎯 Kaggle Requirements Met 
-✅ Multi-agent system (7 agents)  
-✅ Tools integration (4 tools)  
+✅ Multi-agent system (5 specialized agents + orchestrator)  
+✅ Tools integration (5 tools)  
 ✅ Sessions & memory (SQLite + Flask sessions with database persistence)  
 ✅ Observability (metrics table + event tracking + DEBUG logging + dashboard)  
 ✅ Agent evaluation (user feedback system)
@@ -131,27 +131,41 @@ Access `http://localhost:5000/observability` for:
 ## 📊 Development Status
 
 ### Completed Phases
-- ✅ **Phase 0**: Core 7-agent system with multimodal support
+- ✅ **Phase 0**: Core 5-agent system with multimodal support
 - ✅ **Phase 1.1**: Fixed Flask watchdog configuration
 - ✅ **Phase 1.2**: Implemented DatabaseSessionService for persistence
 - ✅ **Phase 3**: Observability system with event tracking and dashboard
 - ✅ **Phase 4**: Export functions and email drafting
 - ✅ **Phase 4.5**: Enhanced observability with ADK DEBUG logging
+- ✅ **Phase 5**: Documentation updates and production readiness (COMPLETED)
 
-### Current Sprint
-- 📋 **Phase 5**: Documentation updates and production readiness
+### System Status
+✅ **Production Ready** - All core features implemented, documented, and tested
 
-See `development_idea/system_v1_improve_plan.md` for detailed roadmap.
+See `development_idea/system_v1_improve_plan.md` for detailed roadmap and `docs/PHASE_5_COMPLETION.md` for latest completion report.
 
 ## 🤝 Contributing
 This is a capstone project. See `docs/` for architecture details.
 
+## 📚 Documentation
 
-### issue find in current development
-1. session is not recorded properly - might be due to auto reflashing." * Restarting with watchdog (windowsapi)
- * Debugger is active!"
- Maybe create a log history monotr tool or just use the google adk build-in front-end test the agent setting.
-2. The agent prompt - it should be multilingual assistant, which can help user to draft email to send to law enforcement seek for help.
-3. The .eml and pdf function does not ready. As "2" mention, the purpose for the system is to write a email in perspect of the user to seek proper help from the law enforcement.  
-4. Let create a test using adk build-in front end for me to check the workflow. 
-5. refer to day-4a-agent-observability, we need to add a system help user monitor the workflow. 
+### Quick Links
+- **Getting Started**: See installation steps above
+- **Architecture**: `docs/architecture.md` - Complete system design and diagrams
+- **Glossary**: `docs/glossary.md` - Scam terminology and technical definitions
+- **Database CLI Guide**: `docs/DB_CLI_GUIDE.md` - Developer tools reference
+- **Troubleshooting**: `docs/INSTALLATION_TROUBLESHOOTING.md` - Common issues and solutions
+- **Phase 5 Report**: `docs/PHASE_5_COMPLETION.md` - Latest completion summary
+- **ADK Observability**: `adk_notebook/observability_google_adk.md` - Logging and monitoring guide
+
+### Component Documentation
+- **Backend**: `back_end/README.md` - API endpoints and services
+- **Agents**: `agents_n_tools/README.md` - Agent architecture and workflows
+- **Database**: `data/README.md` - Schema and data management
+- **Tests**: `tests/README.md` - Testing strategy and coverage
+
+---
+
+**Built for**: Google's 5-Day AI Agents Intensive Course Capstone Project  
+**Status**: ✅ Production Ready  
+**Last Updated**: November 29, 2025 

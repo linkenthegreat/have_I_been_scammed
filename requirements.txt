@@ -3,7 +3,7 @@ flask
 google-adk
 google-generativeai
 python-dotenv
-
+google-genai 
 # Testing
 pytest
 
