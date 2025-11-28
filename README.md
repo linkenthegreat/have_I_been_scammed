@@ -1,6 +1,6 @@
 # Scam Prevention Tool 🛡️
 
-This project is inspirec by Have I Been Pwned (https://haveibeenpwned.com/).
+This project is inspired by Have I Been Pwned (https://haveibeenpwned.com/).
 An open-source AI-powered web application to help the public detect and avoid fraud and scams. Built with **Google ADK** and **Gemini 2.5 Flash** for the "5-Day AI Agents Intensive Course with Google" capstone project.
 
 ## 🚀 Features
