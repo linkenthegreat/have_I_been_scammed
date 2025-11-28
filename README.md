@@ -54,13 +54,8 @@ An open-source AI-powered web application to help the public detect and avoid fr
    pip install -r requirements.txt
    ```
 
-3. **Verify installation**
-   ```bash
-   python check_dependencies.py
-   ```
-   This will check all required packages and their versions.
 
-4. **Set up environment**
+3. **Set up environment**
    - Copy `.env.example` to `.env`
    - Add required API keys:
      ```bash
@@ -74,17 +69,17 @@ An open-source AI-powered web application to help the public detect and avoid fr
      FLASK_USE_RELOADER=False          # Disable auto-reload (recommended)
      ```
 
-5. **Run the application**
+4. **Run the application**
    ```bash
    python back_end/app.py
    ```
 
-6. **Access the application**
+5. **Access the application**
    - Main interface: `http://localhost:5000`
    - Observability dashboard: `http://localhost:5000/observability`
    - Health check: `http://localhost:5000/api/health`
 
-7. **Manage logs** (optional)
+6. **Manage logs** (optional)
    ```bash
    python db_cli.py --help  # See all log management commands
    python db_cli.py --logs   # List log files
@@ -95,13 +90,6 @@ An open-source AI-powered web application to help the public detect and avoid fr
 ```bash
 git clone [repo-url] && cd have_I_been_scammed && pip install -r requirements.txt && python check_dependencies.py
 ```
-
-## 🎯 Kaggle Requirements Met 
-✅ Multi-agent system (5 specialized agents + orchestrator)  
-✅ Tools integration (5 tools)  
-✅ Sessions & memory (SQLite + Flask sessions with database persistence)  
-✅ Observability (metrics table + event tracking + DEBUG logging + dashboard)  
-✅ Agent evaluation (user feedback system)
 
 ## 🛠️ Developer Tools
 
@@ -156,14 +144,12 @@ This is a capstone project. See `docs/` for architecture details.
 - **Glossary**: `docs/glossary.md` - Scam terminology and technical definitions
 - **Database CLI Guide**: `docs/DB_CLI_GUIDE.md` - Developer tools reference
 - **Troubleshooting**: `docs/INSTALLATION_TROUBLESHOOTING.md` - Common issues and solutions
-- **Phase 5 Report**: `docs/PHASE_5_COMPLETION.md` - Latest completion summary
-- **ADK Observability**: `adk_notebook/observability_google_adk.md` - Logging and monitoring guide
+
 
 ### Component Documentation
 - **Backend**: `back_end/README.md` - API endpoints and services
 - **Agents**: `agents_n_tools/README.md` - Agent architecture and workflows
 - **Database**: `data/README.md` - Schema and data management
-- **Tests**: `tests/README.md` - Testing strategy and coverage
 
 ---
 
