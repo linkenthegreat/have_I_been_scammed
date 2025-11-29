@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = BASE_DIR / "data" / "scam_detection.db"
 LOGS_DIR = BASE_DIR / "logs"
 
+
 def get_db_connection():
     """Establishes a connection to the SQLite database."""
     if not DB_PATH.exists():
@@ -622,8 +623,12 @@ Examples:
     
     args = parser.parse_args()
     
-    # If no arguments provided, show stats and tables
-    if not any(vars(args).values()) or (args.limit == 10 and len([v for v in vars(args).values() if v]) == 1):
+    # If no arguments provided (only default values), show stats and tables
+    # Check if any flag is explicitly set (excluding limit and file which have defaults)
+    explicit_args = {k: v for k, v in vars(args).items() 
+                    if k not in ['limit', 'file', 'lines', 'no_backup'] and v}
+    
+    if not explicit_args:
         print("\n🗄️  Scam Detection Database CLI")
         print("=" * 60)
         show_stats()

@@ -11,7 +11,7 @@ We use an **LLM-Orchestrated Multi-Agent System** with 7 specialized agents:
 ```
 OrchestratorAgent (Root)
 ├── ReceptionistAgent          # User interaction & context gathering
-├── TextAnalyzerAgent          # Text/image scam pattern detection
+├── TextAnalyzerAgent          # Text/image/Audio scam pattern detection
 ├── URLAnalyzerAgent           # URL safety analysis (with 3 tools)
 ├── ReportGeneratorAgent       # Compile findings into user report
 ├── ResourceAssistantAgent     # Find local reporting contacts

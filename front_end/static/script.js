@@ -115,8 +115,19 @@ async function analyzeScam() {
     const userLocation = document.getElementById('userLocation').value;
     const userRole = document.getElementById('userRole').value;
 
-    // Add user message to chat
-    addMessage('user', content || '[Attached files]');
+    // Build message with file info
+    let messageText = content || '';
+    let fileInfo = [];
+    
+    if (imageFile) {
+        fileInfo.push({ type: '📷', name: imageFile.name });
+    }
+    if (audioFile) {
+        fileInfo.push({ type: '🎤', name: audioFile.name });
+    }
+
+    // Add user message to chat with file badges
+    addMessageWithFiles('user', messageText || '[Message with attachments]', fileInfo);
     
     // Clear input
     document.getElementById('userInput').value = '';
@@ -177,6 +188,39 @@ function addMessage(role, text) {
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message-content';
     contentDiv.innerHTML = text.replace(/\n/g, '<br>');
+    
+    messageDiv.appendChild(contentDiv);
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function addMessageWithFiles(role, text, files = []) {
+    const messagesDiv = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${role}-message`;
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+    
+    // Add text content
+    const textDiv = document.createElement('div');
+    textDiv.innerHTML = text.replace(/\n/g, '<br>');
+    contentDiv.appendChild(textDiv);
+    
+    // Add file badges if present
+    if (files && files.length > 0) {
+        const filesDiv = document.createElement('div');
+        filesDiv.className = 'message-files';
+        
+        files.forEach(file => {
+            const badge = document.createElement('span');
+            badge.className = 'message-file-badge';
+            badge.innerHTML = `${file.type} ${file.name}`;
+            filesDiv.appendChild(badge);
+        });
+        
+        contentDiv.appendChild(filesDiv);
+    }
     
     messageDiv.appendChild(contentDiv);
     messagesDiv.appendChild(messageDiv);

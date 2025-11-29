@@ -24,7 +24,7 @@ An open-source AI-powered web application to help the public detect and avoid fr
 - **Testing**: pytest with TDD approach
 
 ## 📂 Project Structure
-- `agents_n_tools/`: 5 ADK agents (Orchestrator, Receptionist, Text Analyzer, URL Analyzer, Report Generator, Resource Assistant) + custom tools (Safe Browsing, URLhaus, URL metadata)
+- `agents_n_tools/`: 6 ADK agents (Orchestrator, Receptionist, Text Analyzer, URL Analyzer, Report Generator, Resource Assistant) + custom tools (Safe Browsing, URLhaus, URL metadata)
 - `back_end/`: Flask API, orchestrator service, observability tracking, session management
 - `front_end/`: Web interface with collapsible context gathering
 - `data/`: SQLite database with 5 tables (sessions, scam_checks, feedback, metrics, observability_events)
