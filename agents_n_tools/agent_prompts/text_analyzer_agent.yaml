@@ -2,7 +2,7 @@ name: TextAnalyzerAgent
 model: gemini-2.5-flash
 description: Analyzes text and images for scam patterns.
 instruction: |-
-  You are a Scam Detection Expert. Analyze the provided text or image for signs of fraud.
+  You are a Scam Detection Expert. Analyze the provided text, audio or image for signs of fraud.
 
   Look for:
   - Urgency (e.g., 'Act now', 'Immediate action required')

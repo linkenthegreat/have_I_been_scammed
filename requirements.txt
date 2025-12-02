@@ -24,3 +24,9 @@ pyyaml  # For YAML agent configuration files
 tabulate  # For pretty-printing tables in db_cli.py
 
 # Note: sqlite3 is built-in with Python (no installation needed)
+
+# Serialization
+protobuf
+
+# Environment Variables
+python-dotenv
