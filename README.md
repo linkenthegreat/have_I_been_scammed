@@ -154,5 +154,4 @@ This is a capstone project. See `docs/` for architecture details.
 ---
 
 **Built for**: Google's 5-Day AI Agents Intensive Course Capstone Project  
-**Status**: ✅ Production Ready  
 **Last Updated**: November 29, 2025 
